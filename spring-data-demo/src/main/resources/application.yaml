@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/testhibernate
+    username: root
+    password: 201408020
+
+  jpa:
+      hibernate:
+        ddl-auto: none
+

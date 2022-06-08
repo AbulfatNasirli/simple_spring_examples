@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="notification" class="az.spring.demo.Notification"  scope="singleton"
+          init-method="myInit" destroy-method="destroyMethod" autowire="byName"/>
+
+
+    <bean id="message" class="az.spring.demo.Sms"/>
+
+    <bean id="email" class="az.spring.demo.Email"/>
+
+    <bean id="employee" class="az.spring.demo.Employee">
+
+        <!-- setter injection
+         <property name="name" value="Abulfat"/>
+           <property name="surname" value="Nasirli"/>
+           <property name="age" value="23"/>
+           <property name="salary" value="1100"/>
+           setter injection
+
+   -->
+
+        <!-- <constructor-arg value="Abulfat"/>
+        <constructor-arg value="Nasirli"/>
+        <constructor-arg value="23"/>
+        <constructor-arg value="1000"/>
+        -->
+
+
+        <constructor-arg value="Abulfat" type="java.lang.String"/>
+        <constructor-arg value="Nasirli" type="java.lang.String"/>
+
+        <!-- <constructor-arg value="23" type="int"/>
+             <constructor-arg value="1000" type="double"/>-->
+
+
+        <!-- list yox set olsaydi eger asagdaki <list> yerine <set> yazacaqidik
+       qalan her sey eyniyle oldugu kimi qalacag
+       List<String> device olsaydi eger <list>
+       <value> Android <value>
+       <list>  formasinda olacaqdi
+       -->
+        <property name="device">
+            <list>
+                <ref bean="deviceAndroid"/>
+                <ref bean="deviceIOS"/>
+                <!--   <bean class="az.spring.demo.Device"> buna deyilir inner bean yuxaridaki ref ile
+                       <property name="name" value="Something"/>  hec bir ferqi yoxdur lakin ref ile daha seliqeli olur
+                       <property name="version" value="12.2.2"/>
+                   </bean>
+                   -->
+            </list>
+        </property>
+
+        <property name="databaseProperties">
+            <props>
+                <prop key="url">jdbc:mysql//localhost:3306/user</prop>
+                <prop key="username">root</prop>
+                <prop key="password">1234</prop>
+            </props>
+        </property>
+
+        <!--   <property>
+               <map>
+                   <entry key="android">
+                       <ref bean="deviceAndroid"/>
+                   </entry>
+
+                   <entry key="ios">
+                       <ref bean="deviceIOS"/>
+                   </entry>
+               </map>
+           </property>
+
+           -->
+
+    </bean>
+
+    <bean id="deviceAndroid" class="az.spring.demo.Device">
+        <property name="name" value="Android"/>
+        <property name="version" value="9.0.3"/>
+    </bean>
+
+    <bean id="deviceIOS" class="az.spring.demo.Device">
+        <property name="name" value="IOS"/>
+        <property name="version" value="13.1.1"/>
+    </bean>
+
+</beans>
